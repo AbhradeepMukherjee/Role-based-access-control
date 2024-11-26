@@ -11,9 +11,10 @@ const getAllPosts = async (req, res) => {
 const createPost = async (req, res) => {
     try {
       const { title, content } = req.body;
-      const post = new BlogPost({ title, content, author: req.user._id });
+      const post = new Blog({ title, content, author: req.user._id });
       await post.save();
-      res.status(201).json(post);
+      const populatedPost = await Blog.findById(post._id).populate('author', 'username');
+      res.status(201).json({post:populatedPost});
     } catch (err) {
       res.status(500).json({ error: err.message });
     }
@@ -21,7 +22,7 @@ const createPost = async (req, res) => {
 
 const deletePost = async (req, res) => {
     try {
-      const post = await BlogPost.findByIdAndDelete(req.params.id);
+      const post = await Blog.findByIdAndDelete(req.params.id);
       if (!post) {
         return res.status(404).json({ message: 'Post not found' });
       }
