@@ -1,6 +1,6 @@
 const User = require("../models/User.js");
 const roleChangeSchema = require("../zod/roleSchema.js");
-
+const bcrypt = require("bcryptjs");
 //update user's role (admin only)
 const updateUserRole = async (req, res) => {
   try {

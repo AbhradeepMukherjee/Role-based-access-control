@@ -51,11 +51,13 @@ const login = async (req, res) => {
       return res.status(401).json({ message: "Invalid credentials" });
     }
     const user = await User.findOne({ email });
-    if (!user || !(await bcrypt.compare(password, user.password))) {
+    const matchPassword = await bcrypt.compare(password, user.password);
+    console.log(email, user.email, password, user.password, matchPassword);
+    if (!user || !matchPassword) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "1h",
+      expiresIn: "6h",
     });
     res.cookie("token", token, {
       httpOnly: true,
@@ -103,11 +105,11 @@ const verifyEmail = async (req, res) => {
 };
 
 const generateOtp = async (req, res) => {
-  try{
-    const {email} = req.body;
+  try {
+    const { email } = req.body;
 
-    if(!email) {
-      return res.status(401).json({ message: "Invalid Credentials"});
+    if (!email) {
+      return res.status(401).json({ message: "Invalid Credentials" });
     }
 
     const user = await User.findOne({ email });
@@ -119,7 +121,9 @@ const generateOtp = async (req, res) => {
     if (!user.emailVerified) {
       return res
         .status(403)
-        .json({ message: "Email not verified. Please verify your email first." });
+        .json({
+          message: "Email not verified. Please verify your email first.",
+        });
     }
 
     const otp = generateOTP();
@@ -127,25 +131,24 @@ const generateOtp = async (req, res) => {
     user.otpExpiry = Date.now() + 10 * 60 * 1000;
 
     await user.save();
-    
+
     await sendEmail(email, user.username, otp);
 
     res.status(201).json({
       message: "OTP successfully sent to mail",
-    });    
-  }catch(err){
+    });
+  } catch (err) {
     res.status(500).json({ error: err.message });
   }
-}
+};
 
 const resetPassword = async (req, res) => {
   try {
     const { email, otp, newPassword } = req.body;
+    console.log(email, otp, newPassword);
 
     if (!email || !otp || !newPassword) {
-      return res
-        .status(400)
-        .json({ message: "Invalid Credentials" });
+      return res.status(400).json({ message: "Invalid Credentials" });
     }
 
     const user = await User.findOne({ email });
@@ -164,14 +167,12 @@ const resetPassword = async (req, res) => {
       return res.status(400).json({ message: "OTP has expired" });
     }
 
-    const hashedPassword = await bcrypt.hash(newPassword, 10);
-    user.password = hashedPassword;
-
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(newPassword, salt);
 
     user.otp = undefined;
     user.otpExpiry = undefined;
     await user.save();
-
 
     return res.status(200).json({ message: "Password reset successful" });
   } catch (err) {
@@ -190,5 +191,5 @@ module.exports = {
   logout,
   verifyEmail,
   generateOtp,
-  resetPassword
+  resetPassword,
 };

@@ -21,11 +21,14 @@ auth routes to test:
 - register with password smaller than 8 digits
 - register with username starting with number
 - register with role being something other than "Admin", "Editor", "Viewer"
+- verify email 
+- forget password
 - logout 
 
 user routes to test:
 - get users using admin account
 - get users using editor/viewer account
+- change password
 - promote role of a user using an admin account
 - demote role of a user using an admin account
 - promote or demote a user using an editor/viewer account
