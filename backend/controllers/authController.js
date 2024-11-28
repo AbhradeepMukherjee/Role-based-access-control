@@ -63,7 +63,7 @@ const login = async (req, res) => {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "Strict",
-      maxAge: 3600000,
+      maxAge: 86400000,
     });
     res.status(200).json({
       message: "Login successful",
@@ -119,11 +119,9 @@ const generateOtp = async (req, res) => {
     }
 
     if (!user.emailVerified) {
-      return res
-        .status(403)
-        .json({
-          message: "Email not verified. Please verify your email first.",
-        });
+      return res.status(403).json({
+        message: "Email not verified. Please verify your email first.",
+      });
     }
 
     const otp = generateOTP();
@@ -144,8 +142,22 @@ const generateOtp = async (req, res) => {
 
 const resetPassword = async (req, res) => {
   try {
-    const { email, otp, newPassword } = req.body;
-    console.log(email, otp, newPassword);
+    const { email, otp, newPassword, token } = req.body;
+
+    let formData = new FormData();
+    formData.append("secret", process.env.SECRET_KEY);
+    formData.append("response", token);
+
+    const url = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
+    const result = await fetch(url, {
+      body: formData,
+      method: "POST",
+    });
+    const challengeSucceeded = (await result.json()).success;
+
+    if (!challengeSucceeded) {
+      return res.status(403).json({ message: "Invalid reCAPTCHA token" });
+    }
 
     if (!email || !otp || !newPassword) {
       return res.status(400).json({ message: "Invalid Credentials" });
@@ -182,7 +194,7 @@ const resetPassword = async (req, res) => {
 
 const logout = (req, res) => {
   res.clearCookie("token");
-  res.json({ message: "Logged out successfully" });
+  res.status(200).json({ message: "Logged out successfully" });
 };
 
 module.exports = {

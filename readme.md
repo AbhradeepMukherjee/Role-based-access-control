@@ -40,3 +40,29 @@ post routes to test:
 - create a post without a title or content
 - delete a post using admin account
 - delete a post using an editor/viewer account
+
+
+### UI wireframe:
+
+#### auth:
+- login page
+- register page
+- forgot password
+
+#### pages:
+1. dashboard:
+- admin: 
+a. sidebar (home, explore, manage users, change password, logout)
+b. navbar
+c. write buton, modal
+d. all the blogs should have a delete button (for admin)
+- editor:
+a. sidebar (home, explore, change password, logout)
+b. navbar
+c. write button, modal
+d. no delete button in blogs
+- viewer:
+a. sidebar (home, explore, change password, logout)
+b. navbar
+c. no write button
+d. no delete button in blogs

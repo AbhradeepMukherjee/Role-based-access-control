@@ -23,7 +23,11 @@ start();
 app.use(cookieParser());
 
 //middlewaare for Cross-Origin Resource Sharing (CORS)
-app.use(cors());
+const corsOptions = {
+    origin: "http://localhost:5173", // Allow requests from your frontend
+    credentials: true, // Allow cookies and other credentials
+};
+app.use(cors(corsOptions))
 
 //middleware for parsing JSON
 app.use(express.json());
