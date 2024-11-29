@@ -103,11 +103,43 @@ The system ensures:
 ## **Screenshots**
 
 Include screenshots of different parts of the app:
-1. Admin:  
 
-2. Editor:
+1. Login:
+![Screenshot from 2024-11-29 21-13-13](https://github.com/user-attachments/assets/41a7086f-0848-4100-baef-8d5bcff2b4ee)
 
-3. Viewer:  
+3. Register:
+![Screenshot from 2024-11-29 21-13-19](https://github.com/user-attachments/assets/9721d87f-8feb-4966-b46c-aea72642ed01)
+
+4. Forgot Password:
+  ![Screenshot from 2024-11-29 21-13-27](https://github.com/user-attachments/assets/de9b064c-099b-43a0-a391-b09136f9d437)
+
+5. Admin:
+   a. dashboard:
+ ![Screenshot from 2024-11-29 21-13-48](https://github.com/user-attachments/assets/b0355db7-fa06-4a06-9427-441f04cb3822)
+   b. modify user's roles (only admin):
+ ![Screenshot from 2024-11-29 21-13-53](https://github.com/user-attachments/assets/7f013208-68cb-4669-a0fe-33ef864ea68b)
+   c. change password:
+   ![Screenshot from 2024-11-29 21-14-00](https://github.com/user-attachments/assets/6f3d2700-ec62-4717-83e0-7abc28508408)
+   d. write blog(for admin and users):
+   ![Screenshot from 2024-11-29 21-14-13](https://github.com/user-attachments/assets/cfd6d242-7d11-4eaa-9d79-2c58b93ec17e)
+
+
+
+7. Editor:
+   a. dashboard:
+    ![Screenshot from 2024-11-29 21-14-57](https://github.com/user-attachments/assets/57177062-12d2-4d1a-b1a5-1e19b1374d46)
+   b. change password:
+   ![Screenshot from 2024-11-29 21-41-39](https://github.com/user-attachments/assets/e1d4d3c8-5e35-48e4-8448-be7a4385add8)
+   c. write blog:
+   ![Screenshot from 2024-11-29 21-42-15](https://github.com/user-attachments/assets/1e7302ef-f3e4-414f-80c0-cddcc41c2291)
+
+
+9. Viewer:  
+   a. dashboard:
+   ![Screenshot from 2024-11-29 21-22-26](https://github.com/user-attachments/assets/db1d2220-0777-4c07-a3f7-8247e64fe85a)
+   b. change password:
+   ![Screenshot from 2024-11-29 21-22-31](https://github.com/user-attachments/assets/fc1f9fb1-2f7c-4565-97e6-c7aaeeca73ce)
+
 
 ---
 
