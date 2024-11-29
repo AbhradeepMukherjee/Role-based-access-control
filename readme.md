@@ -171,7 +171,7 @@ Make sure you have the following installed on your machine:
 ## Backend
 1. Clone the repository:
    ```bash
-   git clone https://github.com/AbhradeepMukherjee/CalenderApp.git
+   git clone https://github.com/AbhradeepMukherjee/Role-based-access-control.git
    cd your-repo-name/backend
    ```
 2. Install dependencies:
@@ -203,4 +203,3 @@ Make sure you have the following installed on your machine:
    npm run dev
    ```
 3. Open your browser and go to http://localhost:5173 to view the application.
-
