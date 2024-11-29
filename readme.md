@@ -9,7 +9,8 @@
 6. [Frontend Walkthrough](#frontend-walkthrough)  
 7. [Testing APIs](#testing-apis)  
 8. [Screenshots](#screenshots)  
-9. [Potential Improvements](#potential-improvements)  
+9. [Potential Improvements](#potential-improvements)
+10. [installation](#installation)
 
 ---
 
@@ -157,4 +158,49 @@ Include screenshots of different parts of the app:
 4. **Deploy the website**
 
 ---
+
+## **Installation**
+
+
+# Prerequisites:
+Make sure you have the following installed on your machine:
+- Node.js (v14 or higher)
+- npm (Node Package Manager)
+
+# Installation
+## Backend
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/AbhradeepMukherjee/CalenderApp.git
+   cd your-repo-name/backend
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Create a ```.env``` file in the backend directory and add the environment variables (e.g., database connection string, Firebase API keys).
+4. Run database migrations
+## Frontend
+1. In a new terminal, navigate to the frontend directory:
+   ```bash
+   cd /frontend
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Create a ```.env``` file in the frontend directory and add the environment variables (e.g., backend url, Firebase API keys)
+
+# Running the Application
+1. Start the Backend
+     In the backend directory, run:
+   ```bash
+   npm start
+   ```
+2. Start the Frontend
+   In the frontend directory, run:
+    ```bash
+   npm run dev
+   ```
+3. Open your browser and go to http://localhost:5173 to view the application.
 
