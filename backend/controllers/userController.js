@@ -45,7 +45,7 @@ const updateUserRole = async (req, res) => {
     user.role = role;
     await user.save();
 
-    res.json({ message: `User role updated to ${role}` });
+    res.status(200).json({ message: `User role updated to ${role}` });
   } catch (err) {
     if (err instanceof z.ZodError) {
       return res.status(400).json({ errors: err.errors });

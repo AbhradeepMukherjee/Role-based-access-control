@@ -9,9 +9,24 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useGetUserDetails } from "../context/userContext";
+import axios from "axios";
 
-const BlogCard = ({ title, content, authorUsername, authorId, onDelete }) => {
+const BlogCard = ({ blogId, title, content, authorUsername, authorId, onDelete, setFlag }) => {
   const { userDetails } = useGetUserDetails();
+
+  const handleDelete = async ()=>{
+    try{
+      const resp = await axios.delete(`http://localhost:8000/api/v1/posts/${blogId}`,
+        {withCredentials: true}
+      )
+      if(resp?.status === 201){
+        setFlag((prev)=>!(prev));
+      }
+    }catch(err){
+      console.log(err);
+    }
+  }
+
   return (
     <Card
       sx={{
@@ -43,7 +58,7 @@ const BlogCard = ({ title, content, authorUsername, authorId, onDelete }) => {
           </Typography>
           {userDetails?.role === "Admin" && (
             <IconButton
-              onClick={() => onDelete(authorId)}
+              onClick={handleDelete}
               sx={{
                 color: "maroon",
               }}

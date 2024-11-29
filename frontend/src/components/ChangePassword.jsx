@@ -15,8 +15,10 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useNavigate } from "react-router";
 import { useState } from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import axios from "axios";
 
 export default function ChangePassword() {
+  const { userDetails } = useGetUserDetails();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -43,16 +45,16 @@ export default function ChangePassword() {
   });
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const { userDetails } = useGetUserDetails();
-  console.log(userDetails);
   const handleSubmit = async () => {
+    console.log("submitted");
     try {
       const res = await axios.put(
         "http://localhost:8000/api/v1/users",
-        { email, password, newPassword },
+        { email: userDetails?.email, password, newPassword },
         { withCredentials: true }
       );
       if (res?.status === 200) {
+        console.log("handled");
         setSnackbar({
           open: true,
           message: "Password changed successfully",
@@ -60,8 +62,13 @@ export default function ChangePassword() {
         });
       }
     } catch (error) {
-      setError(err.response?.data?.error || err.message);
-      setSnackbar({ open: true, message: error, severity: "error" });
+      setError(error.response?.data?.error || error.message);
+      setSnackbar({
+        open: true,
+        message: error.response?.data?.error,
+        severity: "error",
+      });
+      console.log(error);
     }
   };
   return (
@@ -147,7 +154,11 @@ export default function ChangePassword() {
                 </InputAdornment>
               ),
             }}
-            sx={{ width: "100%", marginTop: "1rem" , input: { backgroundColor: "inherit" } }}
+            sx={{
+              width: "100%",
+              marginTop: "1rem",
+              input: { backgroundColor: "inherit" },
+            }}
           />
         </Box>
 
@@ -179,7 +190,11 @@ export default function ChangePassword() {
                 </InputAdornment>
               ),
             }}
-            sx={{ width: "100%", marginTop: "1rem" , input: { backgroundColor: "inherit" } }}
+            sx={{
+              width: "100%",
+              marginTop: "1rem",
+              input: { backgroundColor: "inherit" },
+            }}
           />
         </Box>
 
@@ -206,12 +221,20 @@ export default function ChangePassword() {
                     edge="end"
                     style={{ color: "black" }}
                   >
-                    {showConfirmNewPassword ? <VisibilityOff /> : <Visibility />}
+                    {showConfirmNewPassword ? (
+                      <VisibilityOff />
+                    ) : (
+                      <Visibility />
+                    )}
                   </IconButton>
                 </InputAdornment>
               ),
             }}
-            sx={{ width: "100%", marginTop: "1rem" , input: { backgroundColor: "inherit" } }}
+            sx={{
+              width: "100%",
+              marginTop: "1rem",
+              input: { backgroundColor: "inherit" },
+            }}
           />
         </Box>
 
@@ -237,7 +260,7 @@ export default function ChangePassword() {
           severity={snackbar.severity}
           variant="filled"
         >
-          {snackbar.message}
+          {String(snackbar.message)}
         </Alert>
       </Snackbar>
     </Box>
